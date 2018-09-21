@@ -1,0 +1,8 @@
+# runtime
+__pycache__/
+*.pyc
+/venv/
+
+# packaging
+/dist/
+/spyhook.egg-info/
