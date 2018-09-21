@@ -7,6 +7,7 @@ import argparse
 import configparser
 import logging
 import re
+import socket
 import ssl
 import subprocess
 import sys
@@ -173,7 +174,12 @@ def setup():
     log.info(f'starting spyhook on port {port}')
 
     try:
-        web.run_app(app, print=None, port=port, ssl_context=ssl_context,
+        sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+        sock.bind(('::', port))
+        web.run_app(app,
+                    print=None,
+                    sock=sock,
+                    ssl_context=ssl_context,
                     access_log=None)
     except (OSError, RuntimeError) as exception:
         log.error(f'unable to start spyhook: {exception}')
