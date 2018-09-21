@@ -153,7 +153,7 @@ def setup():
         ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         ssl_context.load_cert_chain(config['server']['ssl_certificate'],
                                     config['server']['ssl_key'])
-    except ssl.SSLError as exception:
+    except (OSError, ssl.SSLError) as exception:
         log.error(f'unable to setup ssl certificate: {exception}')
         exit(1)
 
